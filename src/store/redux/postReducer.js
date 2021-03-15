@@ -21,14 +21,10 @@ function reducer(state = initialState, action) {
             
 	
         case FETCH_POST: {
-		   const data = [];
-		   console.log(data);
-			action.payload.docs.forEach(doc => {
-				data.push({...doc.data(),id:doc.id});
-			});
+		  
 			return {
 				...state,
-				posts: data,
+				posts: action.payload,
 			};
 		}
 				   

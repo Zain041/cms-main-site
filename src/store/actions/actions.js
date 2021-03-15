@@ -52,18 +52,19 @@ const blogs = db.collection("blogs");
 
 export const fetchPosts=()=>(dispatch)=> {
 	
-	const data=[];
+	
 	// console.log(data);
     // return function (dispatch) {
-		blogs
-	
-		.get().then(snapshot => {
-			snapshot.forEach((doc)=>{
-				data.push({...doc.data(), id:doc.id});
-			});
+		blogs.onSnapshot(snapshot => {
+			let data = [];
+		
+			 console.log(snapshot);
+			   snapshot.forEach((doc) => {
+				 data.push({ ...doc.data(), id: doc.id });
+			   });
             dispatch({
                 type: FETCH_POST,
-                payload: snapshot,
+                payload: data,
             });
         });
     // };
