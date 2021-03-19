@@ -1,7 +1,8 @@
-import {DAILY_INCOME , FETCH_POST , UPDATE_POST , DELETE_POST} from './type'
+import {DAILY_INCOME , FETCH_POST , UPDATE_POST ,FETCH_JOBS, DELETE_POST} from './type'
 
 import {db} from '../firebase'
 const blogs = db.collection("blogs");
+const jobs = db.collection("jobs");
 // export function addPost(post) {
 // 	console.log(post)
 //     return function (dispatch) {
@@ -69,3 +70,23 @@ export const fetchPosts=()=>(dispatch)=> {
         });
     // };
 }  
+
+export const fetchJobs=()=>(dispatch)=> {
+	
+	
+	// console.log(data);
+    // return function (dispatch) {
+		jobs.onSnapshot(snapshot => {
+			let data = [];
+		
+			 console.log(snapshot);
+			   snapshot.forEach((doc) => {
+				 data.push({ ...doc.data(), id: doc.id });
+			   });
+            dispatch({
+                type: FETCH_JOBS,
+                payload: data,
+            });
+        });
+    // };
+}

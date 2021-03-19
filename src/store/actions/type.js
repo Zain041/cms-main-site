@@ -1,5 +1,6 @@
 export const DAILY_INCOME="DAILY_INCOME"
 export const FETCH_POST="FETCH_POST"
+export const FETCH_JOBS="FETCH_JOBS"
 export const UPDATE_POST="UPDATE_POST"
 export const DELETE_POST="DELETE_POST"
 export const FETCH_CATEGORY="FETCH_CATEGORY"
