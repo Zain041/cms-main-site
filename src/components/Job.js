@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import { Button, Card, CardImg, Col, Container, Input, Row , Form, Label } from "reactstrap";
 import Header from "../components/Header";
 import p from "../aessts/p/p.png";
+import {fetchJobs} from '../store/actions/actions'
+import {connect} from 'react-redux'
 import Footer from "./Footer";
-export default class Job extends Component {
+ class Job extends Component {
+   componentDidMount=()=>{
+     this.props.fetchJobs()
+   }
   render() {
     return (
       <div>
@@ -12,26 +17,31 @@ export default class Job extends Component {
         <br />
         <br />
         <Container>
+        <h1>Featured Jobs</h1>
           <Row className="ml-5 mr-5">
-            <h1>Featured Jobs</h1>
+           
+            {this.props.jobs.map((item,index)=>{
+            return(
+
+           <>
             <Col lg="6" className="text-right">
               <Card>
-                <CardImg src={p} />
+                <CardImg style={{height:'250px'}} src={item.job_image} />
               </Card>
             </Col>
             <Col lg="6">
-              <h5>Senior Product Manager</h5>
-              <h5>Lodon</h5>
+              <h5>{item.job_title}</h5>
+              <h5>{item.job_jobPrice}</h5>
               <p>
-                Senior Commercial Product Manager with experience of working on
-                Enterprise SaaS products sought by this Decisioning Software
-                business within a FTSE 100. You will be responsible for product
-                vision, roadmap, Agile product planning, and driving
-                go-to-market activities
+               {item.job_description}
               </p>
               <Button>Find out more</Button>
             </Col>
+            </>
+            )
+          })}
           </Row>
+          
         </Container>
         <Container>
           <Row className="text-center">
@@ -54,6 +64,7 @@ export default class Job extends Component {
             </p>
             <Col></Col>
           </Row>
+          
           <Row className="text-center">
               <h1>
                   Send Your CV
@@ -83,3 +94,14 @@ export default class Job extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    jobs: state.posts.jobs,
+    userid: state.userid,
+  };
+};  
+export default connect(mapStateToProps, {
+  fetchJobs,
+  
+})(Job);
